@@ -1,6 +1,6 @@
 <template>
-    <div>lol</div>
-    <div>lol</div>
+    <div></div>
+    <div></div>
     <div v-katex="'\\frac{a_i}{1+x}'"></div>
     <span v-katex:auto>\(\int (10x^2) dx = 2x^5 + C\)</span>
     <grid></grid>
@@ -39,7 +39,7 @@ export default class App extends Vue {}
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
-    --accent: #38c997;
+    --accent: #538d4e;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
     --serif: "Merriweather", serif;
