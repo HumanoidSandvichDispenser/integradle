@@ -37,6 +37,12 @@ export default class ExpressionClass extends Vue {
     outline: 1px solid var(--fg0);
 }
 
+.cell.done {
+    background-color: var(--accent);
+    font-weight: 700;
+    color: white;
+}
+
 .cell .cell-katex {
     line-height: 64px;
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="grid">
         <div class="row">
-            <expression-cell is-input>\(\int\)</expression-cell>
+            <expression-cell class="done">\(\int\)</expression-cell>
             <expression-cell is-input>\(10\)</expression-cell>
             <expression-cell is-input>\(x^4\)</expression-cell>
             <expression-cell is-input>\(dx\)</expression-cell>
