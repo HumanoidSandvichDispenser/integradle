@@ -1,1 +1,1 @@
-((web-mode . ((lsp . 1))))
+((web-mode . ((eval . (lsp)))))
