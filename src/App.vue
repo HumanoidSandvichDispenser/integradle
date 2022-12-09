@@ -1,8 +1,10 @@
 <template>
+    <integradle-title></integradle-title>
     <div></div>
-    <div></div>
-    <div v-katex="'\\frac{a_i}{1+x}'"></div>
-    <span v-katex:auto>\(\int (10x^2) dx = 2x^5 + C\)</span>
+    <div class="background"></div>
+    <grid></grid>
+    <grid></grid>
+    <grid></grid>
     <grid></grid>
     <grid></grid>
 </template>
@@ -12,11 +14,13 @@ import { Options, Vue } from "vue-class-component";
 import HelloWorld from "./components/HelloWorld.vue";
 //import ExpCell from "./components/ExpressionCell.vue";
 import Grid from "./components/Grid.vue";
+import IntegradleTitle from "./components/IntegradleTitle.vue";
 
 @Options({
     components: {
         HelloWorld,
         Grid,
+        IntegradleTitle,
     },
 })
 export default class App extends Vue {}
@@ -51,7 +55,24 @@ export default class App extends Vue {}
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #00305f;
     margin-top: 60px;
+}
+
+body {
+    /*background-color: rgb(63, 63, 63);
+    animation: rgb 4s infinite;
+}
+
+@keyframes rgb {
+    0% {
+        background-color: rgb(39, 39, 39);
+    }
+    50% {
+        background-color: rgb(83, 83, 83);
+    }
+    100% {
+        background-color: rgb(39, 39, 39);
+    }*/
 }
 </style>
