@@ -92,12 +92,6 @@ export default class ExpressionClass extends Vue {
 </script>
 
 <style>
-.cell-container {
-    display: table-cell;
-    height: 48px;
-    width: 48px;
-}
-
 .cell,
 .integral {
     display: inline-block;

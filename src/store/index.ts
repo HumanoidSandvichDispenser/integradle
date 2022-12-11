@@ -1,5 +1,8 @@
+import ExpressionError from "../expression-error";
+import { checkExpression, getPreview } from "../utils";
 import { ActionContext, createStore, StoreOptions } from "vuex";
 import { IRootState } from "./types";
+import { notify } from "@kyvg/vue3-notification";
 
 const numberRegex = /^\d+$/;
 const exponentRegex = /^.\^+\d*$/;
@@ -20,19 +23,31 @@ const state = {
         ["", "", "", "", "", "", ""],
         ["", "", "", "", "", "", ""],
     ],
+    previewExpression: "",
     currentRow: 0,
     currentColumn: 0,
 };
 
-const getters = {
+export const getters = {
     currentExpression(state: IRootState) {
         return state.expressions[state.currentRow][state.currentColumn];
     },
+    nextExpression(state: IRootState) {
+        return state.expressions[state.currentRow][state.currentColumn + 1];
+    },
+    currentLine(state: IRootState) {
+        return state.expressions[state.currentRow];
+    },
 };
 
-const mutations = {
+export const mutations = {
     SET_CURRENT_EXPRESSION(state: IRootState, exp: string) {
-        state.expressions[state.currentRow][state.currentColumn] = exp;
+        const row = state.expressions[state.currentRow];
+        row[state.currentColumn] = exp;
+
+        // update expressions
+        state.previewExpression = getPreview(row);
+        console.log(state.previewExpression);
     },
     SET_CURRENT_ROW(state: IRootState, row: number) {
         state.currentRow = row;
@@ -55,15 +70,24 @@ const mutations = {
     MOVE_DOWN(state: IRootState) {
         state.currentRow++;
         state.currentColumn = 0;
+        state.previewExpression = "\\int";
     },
 };
 
-const actions = {
+export const actions = {
     PUSH_CHARACTER(
         context: ActionContext<IRootState, IRootState>,
         char: string
     ) {
-        const currExp = getters.currentExpression(state);
+        let currExp = getters.currentExpression(state);
+        const nextExp = getters.nextExpression(state);
+        if (nextExp != undefined && nextExp != "") {
+            // there is another expression after the current one
+            // so we should clear the current cell before typing
+            //context.commit("SET_CURRENT_EXPRESSION", "");
+            currExp = getters.currentExpression(state);
+        }
+
         // if caret (for exponent)
         if (char == "^") {
             if (variableRegex.test(currExp)) {
@@ -102,6 +126,7 @@ const actions = {
                 // only append numbers to exponents
                 if (numberRegex.test(char)) {
                     context.commit("SET_CURRENT_EXPRESSION", currExp + char);
+                    context.commit("MOVE_RIGHT");
                 }
             } else {
                 // only append letters to variables
@@ -140,9 +165,41 @@ const actions = {
     SUBMIT(context: ActionContext<IRootState, IRootState>) {
         // we can only submit if we are on the last column, and it is not empty
         const currExp = getters.currentExpression(state);
-        if (state.currentColumn == state.answer.length - 1) {
-            if (currExp.length > 0) {
-                context.commit("MOVE_DOWN");
+
+        // if the expression we submitted is valid, then move to next line
+        if (currExp.length > 0) {
+            try {
+                if (checkExpression(getters.currentLine(state))) {
+                    context.commit("MOVE_DOWN");
+                } else {
+                    console.log("invalid expr");
+                    notify({
+                        title: "Invalid expression",
+                        type: "error",
+                        text:
+                            "Your integrand should evaluate to your " +
+                            "antiderivative",
+                    });
+                }
+            } catch (err) {
+                if (err instanceof ExpressionError) {
+                    notify({
+                        title: "Invalid expression",
+                        type: "error",
+                        text: err.message,
+                    });
+                } else if (err instanceof Error) {
+                    if (err.name != "ParseError") {
+                        throw err;
+                    }
+                    notify({
+                        title: "Parsing error",
+                        type: "error",
+                        text:
+                            "Your expression may have invalid syntax - " +
+                            err.message,
+                    });
+                }
             }
         }
     },

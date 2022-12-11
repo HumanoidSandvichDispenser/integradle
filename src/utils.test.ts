@@ -6,7 +6,7 @@ import "nerdamer/Calculus.js";
 
 describe("utils module", () => {
     test("expression should fail without equals", () => {
-        let cells = ["2x", "x^2", "+", "C"];
+        let cells = ["2x", "dx", "x^2", "+", "C"];
         expect(() => {
             checkExpression(cells)
         }).toThrowError("Missing equals sign");
