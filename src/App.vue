@@ -6,7 +6,7 @@
         </div>
         <div class="background"></div>
         <grid></grid>
-        <button @click="pushCharacter('^')">^</button>
+        <button @click="pushCharacter('^')">x<sup>n</sup></button>
         <button @click="pushCharacter('x')">x</button>
         <button @click="pushCharacter('dx')">dx</button>
         <button @click="pushCharacter('C')">C</button>
@@ -16,7 +16,8 @@
         <button @click="pushCharacter('+')">+</button>
         <button @click="pushCharacter('-')">-</button>
         <button @click="pushCharacter('=')">=</button>
-        <button @click="popCharacter()">DEL</button>
+        <button @click="popCharacter()">DELETE</button>
+        <button @click="popCharacter(true)">CLEAR</button>
         <button @click="submit()">SUBMIT</button>
         <input />
     </div>
@@ -45,7 +46,8 @@ export default class App extends Vue {
 
     pushKey(event: KeyboardEvent) {
         if (event.key == "Backspace") {
-            this.popCharacter();
+            // clear if ctrl key is pressed, otherwise backspace normally
+            this.popCharacter(event.ctrlKey);
         } else if (event.key == "Enter") {
             this.submit();
         } else if (event.key.length == 1) {
@@ -59,8 +61,8 @@ export default class App extends Vue {
         this.$store.dispatch("PUSH_CHARACTER", char);
     }
 
-    popCharacter() {
-        this.$store.dispatch("POP_CHARACTER");
+    popCharacter(clear = false) {
+        this.$store.dispatch("POP_CHARACTER", clear);
     }
 
     submit() {
@@ -99,7 +101,6 @@ export default class App extends Vue {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #00305f;
-    margin-top: 60px;
 }
 
 body {

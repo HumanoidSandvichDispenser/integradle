@@ -118,15 +118,24 @@ const actions = {
             }
         }
     },
-    POP_CHARACTER(context: ActionContext<IRootState, IRootState>) {
+    POP_CHARACTER(
+        context: ActionContext<IRootState, IRootState>,
+        clear: boolean
+    ) {
         let currExp = getters.currentExpression(state);
         if (currExp.length <= 0) {
             context.commit("MOVE_LEFT");
             // update current expression
             currExp = getters.currentExpression(state);
         }
-        console.log(currExp);
-        context.commit("SET_CURRENT_EXPRESSION", currExp.slice(0, -1));
+
+        let newExp = currExp.slice(0, -1);
+
+        if (clear) {
+            newExp = "";
+        }
+
+        context.commit("SET_CURRENT_EXPRESSION", newExp);
     },
     SUBMIT(context: ActionContext<IRootState, IRootState>) {
         // we can only submit if we are on the last column, and it is not empty
