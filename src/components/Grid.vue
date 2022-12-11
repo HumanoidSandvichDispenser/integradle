@@ -1,30 +1,24 @@
 <template>
     <div class="grid">
-        <div class="row">
-            <expression-cell class="done">\(\int\)</expression-cell>
-            <expression-cell is-input>\(10\)</expression-cell>
-            <expression-cell is-input>\(x^4\)</expression-cell>
-            <expression-cell is-input>\(dx\)</expression-cell>
-            <expression-cell is-input>\(=\)</expression-cell>
-            <expression-cell is-input>\(2\)</expression-cell>
-            <expression-cell is-input>\(x^5\)</expression-cell>
-            <expression-cell is-input>\(+\)</expression-cell>
-            <expression-cell is-input>\(C\)</expression-cell>
-        </div>
+        <row></row>
     </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import ExpressionCell from "./ExpressionCell.vue";
+import Row from "./Row.vue";
 
 @Options({
     components: {
-        ExpressionCell,
+        Row,
+    },
+    props: {
+        currentRowIndex: Number,
     },
 })
 export default class Grid extends Vue {
-    cells = [];
+    rows = [];
+    currentRowIndex!: number;
 }
 </script>
 

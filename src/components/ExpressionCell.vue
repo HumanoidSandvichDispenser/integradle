@@ -21,14 +21,13 @@ export default class ExpressionClass extends Vue {
 
 <style scoped>
 .cell {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: table-cell;
     background-color: var(--bg1);
     color: var(--fg0);
     height: 64px;
     width: 64px;
     border-radius: 8px;
-    align-items: center;
-    text-align: center;
     margin: 8px;
 }
 
