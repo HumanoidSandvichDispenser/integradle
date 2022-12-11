@@ -1,6 +1,6 @@
 <template>
     <div class="grid">
-        <row></row>
+        <row v-for="(_, i) in expressions" :key="i" :row-index="i"></row>
     </div>
 </template>
 
@@ -19,6 +19,10 @@ import Row from "./Row.vue";
 export default class Grid extends Vue {
     rows = [];
     currentRowIndex!: number;
+
+    get expressions(): string[][] {
+        return this.$store.state.expressions;
+    }
 }
 </script>
 

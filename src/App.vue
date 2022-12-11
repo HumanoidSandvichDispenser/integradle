@@ -1,12 +1,25 @@
 <template>
-    <integradle-title></integradle-title>
-    <div></div>
-    <div class="background"></div>
-    <grid></grid>
-    <grid></grid>
-    <grid></grid>
-    <grid></grid>
-    <grid></grid>
+    <div v-focus tabindex="0" @keyup="pushKey">
+        <integradle-title></integradle-title>
+        <div class="debug">
+            <div>position {{ position }}</div>
+        </div>
+        <div class="background"></div>
+        <grid></grid>
+        <button @click="pushCharacter('^')">^</button>
+        <button @click="pushCharacter('x')">x</button>
+        <button @click="pushCharacter('dx')">dx</button>
+        <button @click="pushCharacter('C')">C</button>
+        <button @click="pushCharacter('1')">1</button>
+        <button @click="pushCharacter('2')">2</button>
+        <button @click="pushCharacter('3')">3</button>
+        <button @click="pushCharacter('+')">+</button>
+        <button @click="pushCharacter('-')">-</button>
+        <button @click="pushCharacter('=')">=</button>
+        <button @click="popCharacter()">DEL</button>
+        <button @click="submit()">SUBMIT</button>
+        <input />
+    </div>
 </template>
 
 <script lang="ts">
@@ -23,7 +36,37 @@ import IntegradleTitle from "./components/IntegradleTitle.vue";
         IntegradleTitle,
     },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+    get position(): string {
+        return (
+            this.$store.state.currentRow + ":" + this.$store.state.currentColumn
+        );
+    }
+
+    pushKey(event: KeyboardEvent) {
+        if (event.key == "Backspace") {
+            this.popCharacter();
+        } else if (event.key == "Enter") {
+            this.submit();
+        } else if (event.key.length == 1) {
+            this.pushCharacter(event.key);
+        } else {
+            console.log(event.key);
+        }
+    }
+
+    pushCharacter(char: string) {
+        this.$store.dispatch("PUSH_CHARACTER", char);
+    }
+
+    popCharacter() {
+        this.$store.dispatch("POP_CHARACTER");
+    }
+
+    submit() {
+        this.$store.dispatch("SUBMIT");
+    }
+}
 </script>
 
 <style>

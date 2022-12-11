@@ -10,7 +10,7 @@ import { Options, Vue } from "vue-class-component";
         key: String,
     },
 })
-export default class KeyboardButton {
+export default class KeyboardButton extends Vue {
     key!: string;
 }
 </script>

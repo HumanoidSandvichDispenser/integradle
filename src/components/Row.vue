@@ -1,8 +1,14 @@
 <template>
     <div class="row">
-        <expression-cell v-for="(cell, i) in currentExpression" :key="i">
-            \({{ cell }}\)
-        </expression-cell>
+        <div class="integral" v-katex:auto>\( \int \)</div>
+        <expression-cell
+            v-for="(_, i) in expressions[rowIndex]"
+            :key="i"
+            :row-index="rowIndex"
+            :column-index="i"
+            :is-input="isInput"
+            :is-history="isHistory"
+        />
     </div>
 </template>
 
@@ -15,17 +21,31 @@ import ExpressionCell from "./ExpressionCell.vue";
         ExpressionCell,
     },
     props: {
+        rowIndex: Number,
         currentIndex: Number,
     },
 })
 export default class Row extends Vue {
     cells = [];
+    rowIndex!: number;
     currentIndex!: number;
 
-    get currentExpression(): string[] {
-        return this.$store.state.currentExpression;
+    get expressions(): string[][] {
+        return this.$store.state.expressions;
+    }
+
+    get isInput(): boolean {
+        return this.$store.state.currentRow == this.rowIndex;
+    }
+
+    get isHistory(): boolean {
+        return this.$store.state.currentRow > this.rowIndex;
     }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.row {
+    display: table-row;
+}
+</style>
