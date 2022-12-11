@@ -27,8 +27,15 @@ export default class ExpressionClass extends Vue {
     color: var(--fg0);
     height: 64px;
     width: 64px;
+<<<<<<< HEAD
     border-radius: 8px;
     margin: 8px;
+=======
+    border-radius: 4px;
+    align-items: center;
+    text-align: center;
+    margin: 4px;
+>>>>>>> 612ec21140735b41b6647a533b8f1b5f78fda625
 }
 
 .cell.input {
