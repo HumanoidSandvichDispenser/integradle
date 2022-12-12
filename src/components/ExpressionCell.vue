@@ -1,5 +1,5 @@
 <template>
-    <div class="cell-container">
+    <div class="cell-container" @click="focus">
         <div :class="cellClass">
             <!--div
                 class="cell-katex"
@@ -36,6 +36,12 @@ export default class ExpressionClass extends Vue {
     isHistory!: boolean;
     rowIndex!: number;
     columnIndex!: number;
+
+    focus(): void {
+        if (this.isInput) {
+            this.$store.commit("SET_CURRENT_COLUMN", this.columnIndex);
+        }
+    }
 
     get cellClass(): string {
         let classes = ["cell"];
@@ -138,6 +144,16 @@ export default class ExpressionClass extends Vue {
 
 .cell.focused {
     outline: 2px solid var(--fg0);
+    animation: focus 0.25s;
+}
+
+@keyframes focus {
+    0% {
+        transform: scale(1.125);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .cell.done {

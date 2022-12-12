@@ -1,9 +1,10 @@
 <template>
     <notifications position="top center" />
     <div v-focus tabindex="0" @keyup="pushKey" style="outline: none">
-        <integradle-title></integradle-title>
+        <div class="title-container">
+            <integradle-title></integradle-title>
+        </div>
         <div class="debug">
-            <div>position {{ position }}</div>
             <div v-katex="previewExpression" class="preview" />
         </div>
         <div class="background"></div>
@@ -103,6 +104,7 @@ export default class App extends Vue {
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
+    --keyboard-bg: #ffffffaa;
     --accent: #538d4e;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
@@ -117,7 +119,17 @@ export default class App extends Vue {
     text-align: center;
     color: #00305f;
 }
+
 .keyboard-container {
-    margin-top: 50px;
+    position: sticky;
+    margin-top: 32px;
+    bottom: 0;
+    padding: 16px;
+    background-color: var(--keyboard-bg);
+    backdrop-filter: blur(4px);
+}
+
+.title-container {
+    margin: 16px;
 }
 </style>

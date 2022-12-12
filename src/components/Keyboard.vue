@@ -14,26 +14,26 @@
     <button @click="submit()">SUBMIT</button-->
     <div class="keyboard-row">
         <button @click="$emit('pushCharacter', 'x')">x</button>
-        <button @click="$emit('pushCharacter', '1')">1</button>
-        <button @click="$emit('pushCharacter', '2')">2</button>
-        <button @click="$emit('pushCharacter', '3')">3</button>
+        <button class="number" @click="$emit('pushCharacter', '1')">1</button>
+        <button class="number" @click="$emit('pushCharacter', '2')">2</button>
+        <button class="number" @click="$emit('pushCharacter', '3')">3</button>
     </div>
     <div class="keyboard-row">
         <button @click="$emit('pushCharacter', 'dx')">dx</button>
-        <button @click="$emit('pushCharacter', '4')">4</button>
-        <button @click="$emit('pushCharacter', '5')">5</button>
-        <button @click="$emit('pushCharacter', '6')">6</button>
+        <button class="number" @click="$emit('pushCharacter', '4')">4</button>
+        <button class="number" @click="$emit('pushCharacter', '5')">5</button>
+        <button class="number" @click="$emit('pushCharacter', '6')">6</button>
     </div>
     <div class="keyboard-row">
         <button @click="$emit('pushCharacter', 'C')">C</button>
-        <button @click="$emit('pushCharacter', '7')">7</button>
-        <button @click="$emit('pushCharacter', '8')">8</button>
-        <button @click="$emit('pushCharacter', '9')">9</button>
+        <button class="number" @click="$emit('pushCharacter', '7')">7</button>
+        <button class="number" @click="$emit('pushCharacter', '8')">8</button>
+        <button class="number" @click="$emit('pushCharacter', '9')">9</button>
     </div>
     <div class="keyboard-row">
         <button @click="$emit('pushCharacter', '+')">+</button>
         <button @click="$emit('pushCharacter', '-')">-</button>
-        <button @click="$emit('pushCharacter', '0')">0</button>
+        <button class="number" @click="$emit('pushCharacter', '0')">0</button>
         <button @click="$emit('pushCharacter', '^')">x^n</button>
     </div>
     <div class="keyboard-row">
@@ -53,22 +53,18 @@ export default class Keyboard extends Vue {}
 
 <style>
 .keyboard-row button {
-    border: 2px solid var(--bg1);
-    border-width: 2px;
+    /*border: 2px solid var(--fg0);*/
+    border: none;
     width: 48px;
     height: 48px;
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: inherit;
-    font-weight: bold;
-    border: 0;
+    font-size: 16px;
+    font-weight: 600;
     padding: 0;
     height: 50px;
     cursor: pointer;
     background-color: var(--bg2);
-    color: aliceblue;
+    color: var(--fg0);
     flex-grow: 1;
-    text-transform: uppercase;
     margin-right: 6px;
     margin-top: 6px;
     border-radius: 4px;
@@ -76,8 +72,14 @@ export default class Keyboard extends Vue {}
     top: 32px;
     bottom: 32px;
 }
-button:hover {
-    background-color: var(--bg3);
+
+.keyboard-row button.number {
+    background-color: var(--bg1);
+}
+
+.keyboard-row button:hover {
+    background-color: var(--fg0);
+    color: var(--bg0);
     transform: scale(1.05);
     transition-duration: 0.5s;
 }

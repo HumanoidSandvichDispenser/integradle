@@ -9,6 +9,13 @@ describe("term module", () => {
         expect(t.toStringArray()).toStrictEqual(["+", "2", "x^3"]);
     });
 
+    test("1x^0 should be represented as ['+', '1']", () => {
+        let t: Term = new Term();
+        t.coefficient = 1;
+        t.exponent = 0;
+        expect(t.toStringArray()).toStrictEqual(["+", "1"]);
+    });
+
     test("derivative of 2x^3 should be 6x^2", () => {
         let t: Term = new Term();
         t.coefficient = 2;
