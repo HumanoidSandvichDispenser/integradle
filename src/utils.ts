@@ -2,6 +2,7 @@ import ExpressionError from "./expression-error";
 import nerdamer from "nerdamer";
 import "nerdamer/Algebra.js";
 import "nerdamer/Calculus.js";
+import Term from "./term";
 
 export function getPreview(cells: string[]) {
     const integrandIndex = cells.indexOf("dx");
@@ -72,64 +73,77 @@ function hash(str: string) {
     return hash;
 }
 
-function randomInteger(seed: string) {
-    return hash(hash(seed) + "pepega") % 10;
+function randomInteger(seed: string, max = 10) {
+    return hash(hash(seed) + "pepega") % max;
 }
 
 export function randomLine(seed = "") {
+    /*
     if (seed == "") {
         seed = new Date().toISOString().slice(0, 10) + "pepega";
     }
-    const antiderivative = randomPolynomial(seed);
-}
-
-function derivative(expression: string[]): string[] {
-
-}
-
-export function randomPolynomial(seed: string) {
-    let terms: string[] = [];
-    let digits: number[] = [];
-    for (let i = 0; i < 12; i++) {
-        //
-    }
-    /*
-    let terms: string[] = [];
-
-    // generate a series of 12 random digits
-    let digits: number[] = [];
-    for (let i = 0; i < 12; i++) {
-        digits.push(randomInteger(seed + i));
-    }
-
-    for (let i = 0; i < 9; i++) {
-
-    }
-
-    for (let i = 0; i < 3; i++) {
-        // split the 12 characters into three 4-digit hashes
-        let term: string[];
-        let first = digits[i * 4];
-        let second = digits[i * 4 + 1];
-        let third = digits[i * 4 + 2];
-        let fourth = digits[i * 4 + 3];
-
-        // if the first digit is positive, then the second digit will be the
-        // coefficient (a coefficient of 0 means no terms)
-        if (first > 0 && second != 0) {
-            if (second < 0) {
-                second = -second;
-                polynomial.push("-");
-                term[]
-            } else if (i > 0)
-            polynomial.push(second);
-        }
-
-        // if the third digit is positive, then the fourth digit will be the
-        // exponent, as long as the third digit < A
-    }
-
-    // if no terms were generated (first digit was always negative or second
-    // was always zero) then we generate our own
     */
+    const antiderivative = randomPolynomial();
+    const integrand = antiderivative.map((term) => term.derivative());
+    let antiderivativeStr: string[] = [];
+    let integrandStr: string[] = [];
+
+    antiderivative.forEach((term, i) => {
+        let arr = term.toStringArray();
+        if (i == 0 && term.coefficient > 0) {
+            arr = arr.slice(1);
+        }
+        antiderivativeStr = antiderivativeStr.concat(arr);
+    });
+
+    integrand.forEach((term, i) => {
+        let arr = term.toStringArray();
+        if (i == 0 && term.coefficient > 0) {
+            arr = arr.slice(1);
+        }
+        integrandStr = integrandStr.concat(arr);
+    });
+
+    return [...integrandStr, "dx", "=", ...antiderivativeStr, "+", "C"];
+}
+
+function pick(seed: string, arr: number[], amount: number) {
+    const result = [];
+    const copy = [...arr];
+    for (let i = 0; i < amount; i++) {
+        const index = randomInteger(seed, copy.length);
+        result.push(copy[index]);
+        copy.splice(index, 1);
+    }
+    return result;
+}
+
+//
+// Write a function that generates a random polynomial using the randomTerm() function above. Each term should have a unique exponent (so the polynomial does not have 5x^2 + 2x^2 for instance).
+// Example:
+// randomPolynomial() -> [ '5', 'x^2', '+', '2', 'x' ]
+// randomPolynomial() -> [ '1', 'x^4', '+', '3', 'x^3', '+', '7', 'x^2', '+', '5', 'x' ]
+// randomPolynomial() -> [ '2', 'x^3', '+', 'x^2', '+', '3', 'x' ]
+
+function randomTerm(): Term {
+    let coefficient = Math.floor(Math.random() * 9) + 1;
+    if (Math.random() < 0.5) {
+        coefficient *= -1;
+    }
+    const exponent = Math.floor(Math.random() * 9) + 1;
+    const t: Term = new Term();
+    t.coefficient = coefficient;
+    t.exponent = exponent;
+    return t;
+}
+
+export function randomPolynomial() {
+    const term1 = randomTerm();
+    const term2 = randomTerm();
+
+    if (term1.exponent == term2.exponent) {
+        // just to make sure we don't have the same exponent
+        return [term1];
+    }
+    return [term1];
 }

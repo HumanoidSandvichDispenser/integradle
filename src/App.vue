@@ -41,6 +41,14 @@ export default class App extends Vue {
         );
     }
 
+    created() {
+        this.newPuzzle();
+    }
+
+    newPuzzle() {
+        this.$store.commit("NEW_PUZZLE");
+    }
+
     get previewExpression(): string {
         return this.$store.state.previewExpression;
     }
