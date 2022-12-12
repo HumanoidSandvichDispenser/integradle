@@ -70,7 +70,7 @@ import Remark from "./components/Remark.vue";
     },
 })
 export default class App extends Vue {
-    isKBOpen = false;
+    isKBOpen = true;
 
     get position(): string {
         return (
@@ -100,6 +100,9 @@ export default class App extends Vue {
             this.$store.commit("MOVE_LEFT");
         } else if (event.key == "ArrowRight") {
             this.$store.commit("MOVE_RIGHT");
+        } else if (event.key == "c") {
+            // typing lowercase c will yield uppercase C instead
+            this.pushCharacter("C");
         } else if (event.key.length == 1) {
             this.pushCharacter(event.key);
         } else {
@@ -140,7 +143,7 @@ export default class App extends Vue {
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
-    --keyboard-bg: #dadadaaa;
+    --keyboard-bg: #edededaa;
     --accent: #538d4e;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
@@ -205,7 +208,7 @@ export default class App extends Vue {
     position: relative;
 }
 
-.links a[tooltip]:hover:after {
+.links a[tooltip]:after {
     content: attr(tooltip);
     position: absolute;
     top: 1em;
@@ -213,6 +216,12 @@ export default class App extends Vue {
     transform: translate(-128px, 16px);
     font-weight: 500;
     font-size: 18px;
+    opacity: 0;
+}
+
+.links a[tooltip]:hover:after {
+    opacity: 1;
+    transition-duration: 0.2s;
 }
 
 div.title > .letters.hardmode-color > span {
