@@ -46,7 +46,10 @@ export const mutations = {
     NEW_PUZZLE(state: IRootState, isHardmode = false) {
         state.answer = randomLine(isHardmode);
         state.expressions.length = 0;
-        for (let i = 0; i < state.answer.length; i++) {
+        // old behavior: number of rows depends on number of columns
+        // new behavior 2022-12-12: all puzzles will have 7 rows
+        // this is because more columns can give more clues which makes it easy
+        for (let i = 0; i < 7; i++) {
             const blank = Array(state.answer.length).fill("");
             state.expressions.push(blank);
         }
@@ -93,6 +96,7 @@ export const mutations = {
             notify({
                 title: `Finished in ${lines} move(s)`,
                 type: "success",
+                duration: 8000,
             });
             state.isFinished = true;
         }
@@ -206,7 +210,8 @@ export const actions = {
                         type: "error",
                         text:
                             "Your integrand should evaluate to your " +
-                            "antiderivative",
+                            "antiderivative (i.e. it should be a true " +
+                            "statement)",
                     });
                 }
             } catch (err) {

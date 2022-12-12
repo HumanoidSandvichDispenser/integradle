@@ -1,4 +1,5 @@
 <template>
+    <div id="top"></div>
     <notifications position="top center" />
     <div v-focus tabindex="0" @keyup="pushKey" style="outline: none">
         <div class="title-container">
@@ -10,6 +11,9 @@
                 tooltip="GitHub homepage"
             >
                 <bootstrap-icon icon="github" />
+            </a>
+            <a href="https://sandvich.xyz/tools/integradle/" tooltip="Comments">
+                <bootstrap-icon icon="chat-dots-fill" />
             </a>
             <a
                 href="#"
@@ -44,10 +48,6 @@
                 />
             </div>
         </div>
-        <details class="comments-section">
-            <summary>Comments</summary>
-            <remark />
-        </details>
     </div>
 </template>
 
@@ -58,7 +58,6 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Grid from "./components/Grid.vue";
 import IntegradleTitle from "./components/IntegradleTitle.vue";
 import Keyboard from "./components/Keyboard.vue";
-import Remark from "./components/Remark.vue";
 
 @Options({
     components: {
@@ -66,7 +65,6 @@ import Remark from "./components/Remark.vue";
         Grid,
         IntegradleTitle,
         Keyboard,
-        Remark,
     },
 })
 export default class App extends Vue {
@@ -144,11 +142,34 @@ export default class App extends Vue {
     --fg2: #607880;
     --fg3: #98aab3;
     --keyboard-bg: #edededaa;
-    --accent: #538d4e;
+    --accent: #98c379;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
     --serif: "Merriweather", serif;
     --display: "Bree Serif", var(--serif);
+}
+
+body {
+    background-color: var(--bg0);
+}
+
+body.dark {
+    --fg0: #ffffff;
+    --fg1: #ededed;
+    --fg2: #dadada;
+    --fg3: #afafaf;
+    --bg0: #3a494e;
+    --bg1: #4d6066;
+    --bg2: #607880;
+    --bg3: #98aab3;
+}
+
+h1 {
+    margin: 0;
+}
+
+#top {
+    margin-top: 0;
 }
 
 #app {
@@ -156,7 +177,8 @@ export default class App extends Vue {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #00305f;
+    margin: 0;
+    margin-top: -0px;
 }
 
 .keyboard-container {
@@ -211,12 +233,13 @@ export default class App extends Vue {
 .links a[tooltip]:after {
     content: attr(tooltip);
     position: absolute;
-    top: 1em;
+    margin-top: 1em;
     width: 256px;
     transform: translate(-128px, 16px);
     font-weight: 500;
     font-size: 18px;
     opacity: 0;
+    pointer-events: none;
 }
 
 .links a[tooltip]:hover:after {

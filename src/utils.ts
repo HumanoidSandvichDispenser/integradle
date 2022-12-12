@@ -35,7 +35,7 @@ export function checkExpression(cells: string[]) {
 
     const constantIndex = cells.indexOf("C");
     if (constantIndex < 0) {
-        throw new ExpressionError("Respect the +C");
+        throw new ExpressionError("Respect the +C you moron");
     }
 
     if (integrandIndex != equalsIndex - 1) {
