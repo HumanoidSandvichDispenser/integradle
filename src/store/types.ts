@@ -4,4 +4,6 @@ export interface IRootState {
     previewExpression: string;
     currentRow: number;
     currentColumn: number;
+    isHardmode: boolean;
+    isFinished: boolean;
 }

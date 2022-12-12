@@ -64,6 +64,16 @@ export function compareAntiderivative(
     return expected.eq(received);
 }
 
+export function checkAnswer(cells: string[], answer: string[]): boolean {
+    let hasFoundDiff = false;
+    cells.forEach((cell, i) => {
+        if (cells[i] != answer[i]) {
+            hasFoundDiff = true;
+        }
+    });
+    return !hasFoundDiff;
+}
+
 function hash(str: string) {
     let hash = 0;
     const len = str.length;
@@ -77,13 +87,13 @@ function randomInteger(seed: string, max = 10) {
     return hash(hash(seed) + "pepega") % max;
 }
 
-export function randomLine(seed = "") {
+export function randomLine(isHardmode = false) {
     /*
     if (seed == "") {
         seed = new Date().toISOString().slice(0, 10) + "pepega";
     }
     */
-    const antiderivative = randomPolynomial();
+    const antiderivative = randomPolynomial(isHardmode);
     const integrand = antiderivative.map((term) => term.derivative());
     let antiderivativeStr: string[] = [];
     let integrandStr: string[] = [];
@@ -137,13 +147,22 @@ function randomTerm(): Term {
     return t;
 }
 
-export function randomPolynomial() {
+export function randomPolynomial(isHardmode: boolean) {
     const term1 = randomTerm();
     const term2 = randomTerm();
+    console.log("hardmode: " + isHardmode);
 
-    if (term1.exponent == term2.exponent) {
+    if (isHardmode) {
         // just to make sure we don't have the same exponent
-        return [term1];
+        if (term1.exponent == term2.exponent) {
+            // move one of the exponents up or down
+            if (term2.exponent > 3) {
+                term2.exponent--;
+            } else {
+                term1.exponent++;
+            }
+        }
+        return [term1, term2];
     }
     return [term1];
 }

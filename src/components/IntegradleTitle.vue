@@ -1,6 +1,6 @@
 <template>
     <div class="title">
-        <div class="letters">
+        <div :class="{ letters: true, 'hardmode-color': isHardmode }">
             <span>I</span>
             <span>N</span>
             <span>T</span>
@@ -20,7 +20,11 @@
 import { Options, Vue } from "vue-class-component";
 
 @Options({})
-export default class IntegradleTitle extends Vue {}
+export default class IntegradleTitle extends Vue {
+    get isHardmode(): boolean {
+        return this.$store.state.isHardmode;
+    }
+}
 </script>
 
 <style>

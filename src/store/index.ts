@@ -1,5 +1,5 @@
 import ExpressionError from "../expression-error";
-import { checkExpression, getPreview, randomLine } from "../utils";
+import { checkAnswer, checkExpression, getPreview, randomLine } from "../utils";
 import { ActionContext, createStore, StoreOptions } from "vuex";
 import { IRootState } from "./types";
 import { notify } from "@kyvg/vue3-notification";
@@ -26,6 +26,8 @@ const state = {
     previewExpression: "",
     currentRow: 0,
     currentColumn: 0,
+    isHardmode: false,
+    isFinished: false,
 };
 
 export const getters = {
@@ -41,8 +43,8 @@ export const getters = {
 };
 
 export const mutations = {
-    NEW_PUZZLE(state: IRootState) {
-        state.answer = randomLine();
+    NEW_PUZZLE(state: IRootState, isHardmode = false) {
+        state.answer = randomLine(isHardmode);
         state.expressions.length = 0;
         for (let i = 0; i < state.answer.length; i++) {
             const blank = Array(state.answer.length).fill("");
@@ -51,9 +53,15 @@ export const mutations = {
         state.currentColumn = 0;
         state.currentRow = 0;
         state.previewExpression = "";
+        state.isHardmode = isHardmode;
+        state.isFinished = false;
         console.log(state.answer);
     },
     SET_CURRENT_EXPRESSION(state: IRootState, exp: string) {
+        if (state.isFinished) {
+            return;
+        }
+
         const row = state.expressions[state.currentRow];
         row[state.currentColumn] = exp;
 
@@ -80,6 +88,14 @@ export const mutations = {
         state.currentColumn = col;
     },
     MOVE_DOWN(state: IRootState) {
+        if (checkAnswer(getters.currentLine(state), state.answer)) {
+            const lines = state.currentRow + 1;
+            notify({
+                title: `Finished in ${lines} move(s)`,
+                type: "success",
+            });
+            state.isFinished = true;
+        }
         state.currentRow++;
         state.currentColumn = 0;
         state.previewExpression = "\\int";

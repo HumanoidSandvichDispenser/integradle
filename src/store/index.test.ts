@@ -11,6 +11,8 @@ describe("index module", () => {
             previewExpression: "",
             currentRow: 0,
             currentColumn: 0,
+            isHardmode: false,
+            isFinished: false,
         };
         mutations.MOVE_RIGHT(state);
         expect(state.currentColumn).toBe(1);
@@ -23,6 +25,8 @@ describe("index module", () => {
             previewExpression: "",
             currentRow: 0,
             currentColumn: 1,
+            isHardmode: false,
+            isFinished: false,
         };
         mutations.MOVE_LEFT(state);
         expect(state.currentColumn).toBe(0);

@@ -5,11 +5,26 @@
             <integradle-title></integradle-title>
         </div>
         <div class="links">
-            <a href="https://sandvich.xyz/tools">
+            <a
+                href="https://github.com/humanoidsandvichdispenser/integradle"
+                tooltip="GitHub homepage"
+            >
                 <bootstrap-icon icon="github" />
             </a>
-            <a href="https://github.com/humanoidsandvichdispenser/integradle">
-                <bootstrap-icon icon="github" />
+            <a
+                href="#"
+                @click="newPuzzle(false)"
+                tooltip="New puzzle with 1 term"
+            >
+                <bootstrap-icon icon="dice-1-fill" />
+            </a>
+            <a
+                id="hardmode-icon"
+                href="#"
+                @click="newPuzzle(true)"
+                tooltip="New puzzle with 2 terms ✌️💿"
+            >
+                <bootstrap-icon icon="dice-2-fill" />
             </a>
         </div>
         <div class="display">
@@ -67,8 +82,8 @@ export default class App extends Vue {
         this.newPuzzle();
     }
 
-    newPuzzle() {
-        this.$store.commit("NEW_PUZZLE");
+    newPuzzle(isHardmode = false) {
+        this.$store.commit("NEW_PUZZLE", isHardmode);
     }
 
     get previewExpression(): string {
@@ -125,7 +140,7 @@ export default class App extends Vue {
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
-    --keyboard-bg: #ffffffaa;
+    --keyboard-bg: #dadadaaa;
     --accent: #538d4e;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
@@ -172,11 +187,119 @@ export default class App extends Vue {
 .links a {
     color: var(--fg0);
     transform: scale(1);
+    font-size: 24px;
+    margin: 8px;
 }
 
 .links a:hover svg {
     transform: scale(1.2);
     transition-duration: 0.2s;
+}
+
+.links label {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.links {
+    position: relative;
+}
+
+.links a[tooltip]:hover:after {
+    content: attr(tooltip);
+    position: absolute;
+    top: 1em;
+    width: 256px;
+    transform: translate(-128px, 16px);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+div.title > .letters.hardmode-color > span {
+    animation: rainbow-bg 1s infinite, shake 0.15s infinite;
+    transform: none;
+}
+
+#hardmode-icon:hover svg {
+    animation: shake 0.15s infinite, rainbow 1s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+@keyframes rainbow {
+    0% {
+        color: var(--red);
+    }
+    20% {
+        color: var(--yellow);
+    }
+    40% {
+        color: var(--green);
+    }
+    60% {
+        color: var(--blue);
+    }
+    80% {
+        color: var(--purple);
+    }
+    100% {
+        color: var(--red);
+    }
+}
+
+@keyframes rainbow-bg {
+    0% {
+        background-color: var(--red);
+    }
+    20% {
+        background-color: var(--yellow);
+    }
+    40% {
+        background-color: var(--green);
+    }
+    60% {
+        background-color: var(--blue);
+    }
+    80% {
+        background-color: var(--purple);
+    }
+    100% {
+        background-color: var(--red);
+    }
 }
 
 .display {
