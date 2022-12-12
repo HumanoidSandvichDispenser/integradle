@@ -12,9 +12,7 @@
             <span>L</span>
             <span>E</span>
         </div>
-        <div class="subtitle">
-            A daily math game
-        </div>
+        <div class="subtitle">A daily math game</div>
     </div>
 </template>
 

@@ -34,13 +34,24 @@
         <button @click="$emit('pushCharacter', '+')">+</button>
         <button @click="$emit('pushCharacter', '-')">-</button>
         <button class="number" @click="$emit('pushCharacter', '0')">0</button>
-        <button @click="$emit('pushCharacter', '^')">x^n</button>
+        <button @click="$emit('pushCharacter', '^')">
+            <span v-katex:auto>\( x^n \)</span>
+        </button>
     </div>
     <div class="keyboard-row">
-        <button @click="$emit('popCharacter', true)">CE</button>
-        <button @click="$emit('popCharacter')">DEL</button>
-        <button @click="$emit('submit')">SUB</button>
+        <button @click="$emit('popCharacter', true)">
+            <!--i class="bi bi-backspace"></i-->
+            <bootstrap-icon icon="x-square-fill" />
+            <!--img src="/delete-button.svg" /-->
+            <!--object data="/delete-button.svg" type="image/svg+xml" /-->
+        </button>
+        <button @click="$emit('popCharacter')">
+            <bootstrap-icon icon="backspace-fill" />
+        </button>
         <button @click="$emit('pushCharacter', '=')">=</button>
+        <button @click="$emit('submit')" class="green">
+            <bootstrap-icon icon="arrow-return-left" />
+        </button>
     </div>
 </template>
 
@@ -75,6 +86,10 @@ export default class Keyboard extends Vue {}
 
 .keyboard-row button.number {
     background-color: var(--bg1);
+}
+
+.keyboard-row button.green {
+    background-color: var(--green);
 }
 
 .keyboard-row button:hover {

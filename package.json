@@ -9,8 +9,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dvuckovic/vue3-bootstrap-icons": "^1.0.5",
     "@hsorby/vue3-katex": "^0.6.0-rc.4",
     "@kyvg/vue3-notification": "^2.7.0",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.2",
+    "bootstrap-vue-3": "^0.4.14",
     "core-js": "^3.8.3",
     "katex": "^0.16.3",
     "nerdamer": "^1.1.13",

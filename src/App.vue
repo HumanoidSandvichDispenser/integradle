@@ -4,18 +4,35 @@
         <div class="title-container">
             <integradle-title></integradle-title>
         </div>
-        <div class="debug">
-            <div v-katex="previewExpression" class="preview" />
+        <div class="links">
+            <a href="https://sandvich.xyz/tools">
+                <bootstrap-icon icon="github" />
+            </a>
+            <a href="https://github.com/humanoidsandvichdispenser/integradle">
+                <bootstrap-icon icon="github" />
+            </a>
+        </div>
+        <div class="display">
+            <div v-katex:display="previewExpression" class="preview" />
         </div>
         <div class="background"></div>
         <grid></grid>
-        <div class="keyboard-container">
-            <keyboard
-                @push-character="(c) => pushCharacter(c)"
-                @pop-character="(c) => popCharacter(c)"
-                @submit="submit"
-            />
+        <div
+            :class="{ 'keyboard-container': true, 'kb-open': isKBOpen }"
+            @click="isKBOpen = !isKBOpen"
+        >
+            <div @click.stop>
+                <keyboard
+                    @push-character="(c) => pushCharacter(c)"
+                    @pop-character="(c) => popCharacter(c)"
+                    @submit="submit"
+                />
+            </div>
         </div>
+        <details class="comments-section">
+            <summary>Comments</summary>
+            <remark />
+        </details>
     </div>
 </template>
 
@@ -26,6 +43,7 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Grid from "./components/Grid.vue";
 import IntegradleTitle from "./components/IntegradleTitle.vue";
 import Keyboard from "./components/Keyboard.vue";
+import Remark from "./components/Remark.vue";
 
 @Options({
     components: {
@@ -33,9 +51,12 @@ import Keyboard from "./components/Keyboard.vue";
         Grid,
         IntegradleTitle,
         Keyboard,
+        Remark,
     },
 })
 export default class App extends Vue {
+    isKBOpen = false;
+
     get position(): string {
         return (
             this.$store.state.currentRow + ":" + this.$store.state.currentColumn
@@ -123,13 +144,46 @@ export default class App extends Vue {
 .keyboard-container {
     position: sticky;
     margin-top: 32px;
-    bottom: 0;
+    bottom: -256px;
     padding: 16px;
+    background-color: var(---bg3);
+    backdrop-filter: blur(2px);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.keyboard-container.kb-open {
+    bottom: 0;
+    position: sticky;
     background-color: var(--keyboard-bg);
     backdrop-filter: blur(4px);
+    transition-duration: 0.2s;
+}
+
+.keyboard-container > div {
+    display: inline-block;
 }
 
 .title-container {
     margin: 16px;
+}
+
+.links,
+.links a {
+    color: var(--fg0);
+    transform: scale(1);
+}
+
+.links a:hover svg {
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+}
+
+.display {
+    min-height: 64px;
+}
+
+.comments-section {
+    margin-top: 32px;
 }
 </style>
