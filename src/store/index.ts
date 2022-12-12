@@ -1,5 +1,5 @@
 import ExpressionError from "../expression-error";
-import { checkExpression, getPreview } from "../utils";
+import { checkExpression, getPreview, randomLine } from "../utils";
 import { ActionContext, createStore, StoreOptions } from "vuex";
 import { IRootState } from "./types";
 import { notify } from "@kyvg/vue3-notification";
@@ -41,6 +41,18 @@ export const getters = {
 };
 
 export const mutations = {
+    NEW_PUZZLE(state: IRootState) {
+        state.answer = randomLine();
+        state.expressions.length = 0;
+        for (let i = 0; i < state.answer.length; i++) {
+            const blank = Array(state.answer.length).fill("");
+            state.expressions.push(blank);
+        }
+        state.currentColumn = 0;
+        state.currentRow = 0;
+        state.previewExpression = "";
+        console.log(state.answer);
+    },
     SET_CURRENT_EXPRESSION(state: IRootState, exp: string) {
         const row = state.expressions[state.currentRow];
         row[state.currentColumn] = exp;
