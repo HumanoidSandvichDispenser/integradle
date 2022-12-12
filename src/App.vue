@@ -8,12 +8,13 @@
         </div>
         <div class="background"></div>
         <grid></grid>
-        <div class="keyboard-container"><keyboard
-            @push-character="(c) => pushCharacter(c)"
-            @pop-character="(c) => popCharacter(c)"
-            @submit="submit"
-        /></div>
-        
+        <div class="keyboard-container">
+            <keyboard
+                @push-character="(c) => pushCharacter(c)"
+                @pop-character="(c) => popCharacter(c)"
+                @submit="submit"
+            />
+        </div>
     </div>
 </template>
 
@@ -108,7 +109,7 @@ export default class App extends Vue {
     text-align: center;
     color: #00305f;
 }
-.keyboard-container{
+.keyboard-container {
     margin-top: 50px;
 }
 </style>

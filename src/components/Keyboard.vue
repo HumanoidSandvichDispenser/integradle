@@ -42,7 +42,6 @@
         <button @click="$emit('submit')">SUB</button>
         <button @click="$emit('pushCharacter', '=')">=</button>
     </div>
- 
 </template>
 
 <script lang="ts">
@@ -61,26 +60,25 @@ export default class Keyboard extends Vue {}
     font-size: 2rem;
     font-weight: bold;
     font-family: inherit;
-    font-weight: bold; 
+    font-weight: bold;
     border: 0;
     padding: 0;
     height: 50px;
     cursor: pointer;
     background-color: var(--bg2);
-    color:aliceblue; 
+    color: aliceblue;
     flex-grow: 1;
     text-transform: uppercase;
     margin-right: 6px;
     margin-top: 6px;
     border-radius: 4px;
-    position:sticky;
-    top:32px;
-    bottom:32px;
-    
+    position: sticky;
+    top: 32px;
+    bottom: 32px;
 }
-button:hover{
+button:hover {
     background-color: var(--bg3);
-    transform:scale(1.05);
+    transform: scale(1.05);
     transition-duration: 0.5s;
 }
 </style>
