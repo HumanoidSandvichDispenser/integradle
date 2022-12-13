@@ -36,6 +36,16 @@
             >
                 <bootstrap-icon icon="dice-2-fill" />
             </a>
+            <a
+                id="darkmode-icon"
+                href="#"
+                @click="
+                    toggleDarkMode(true);
+                "
+                tooltip="Dark Mode"
+            >
+                <bootstrap-icon icon="brightness-high-fill" />
+            </a>
         </div>
         <visualizer v-if="isFinished" />
         <div v-else class="display">
