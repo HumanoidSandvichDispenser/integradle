@@ -38,7 +38,6 @@ div.title > .letters > span {
     display: inline-block;
     height: 32px;
     width: 32px;
-    font-size: 24px;
     font-weight: 600;
     background-color: var(--green);
     color: var(--integradle-title-cell);
@@ -52,5 +51,18 @@ div.title > .subtitle {
     text-transform: uppercase;
     font-size: 16px;
     font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+    div.title {
+        row-gap: 4px;
+        font-size: 16px;
+    }
+
+    div.title > .letters > span {
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+    }
 }
 </style>

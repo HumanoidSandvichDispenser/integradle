@@ -62,6 +62,12 @@ export default class Row extends Vue {
     transform: translate3d(0);
 }
 
+@media screen and (max-width: 768px) {
+    .row {
+        column-gap: 4px;
+    }
+}
+
 @keyframes shake {
     10%,
     90% {

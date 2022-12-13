@@ -109,6 +109,15 @@ export default class ExpressionClass extends Vue {
     vertical-align: middle;
 }
 
+@media screen and (max-width: 768px) {
+    .cell,
+    .integral {
+        height: 32px;
+        width: 32px;
+        line-height: 32px;
+    }
+}
+
 .cell {
     border-radius: 4px;
     text-align: center;

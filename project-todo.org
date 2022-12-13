@@ -3,6 +3,7 @@
 CLOSED: [2022-12-10 Sat 22:09]
 ** DONE implement column
 CLOSED: [2022-12-10 Sat 22:09]
-** TODO implement dark mode
-** TODO support for small screens
+** STARTED implement dark mode
+** DONE support for small screens
+CLOSED: [2022-12-13 Tue 07:15]
 ** TODO clean up ~console.log~ calls

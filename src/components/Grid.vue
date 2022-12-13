@@ -41,4 +41,10 @@ export default class Grid extends Vue {
     flex-direction: column;
     row-gap: 8px;
 }
+
+@media screen and (max-width: 768px) {
+    .grid {
+        row-gap: 4px;
+    }
+}
 </style>
