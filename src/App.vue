@@ -52,19 +52,16 @@
         </div>
         <div class="background"></div>
         <grid></grid>
-        <div
-            :class="{ 'keyboard-container': true, 'kb-open': isKBOpen }"
-            @click="isKBOpen = !isKBOpen"
-        >
+        <div :class="{ 'keyboard-container': true, 'kb-open': isKBOpen }">
             <div @click.stop>
-                <div class="keyboard-header">
+                <div class="keyboard-header" @click="isKBOpen = !isKBOpen">
                     <span v-if="isKBOpen">
-                        <bootstrap-icon icon="arrow-bar-down" />
-                        Close keyboard
+                        <bootstrap-icon icon="x-lg" />
+                        Collapse keyboard
                     </span>
                     <span v-else>
-                        <bootstrap-icon icon="arrow-bar-up" />
-                        Pop up keyboard
+                        <bootstrap-icon icon="pin-angle-fill" />
+                        Pin keyboard
                     </span>
                 </div>
                 <keyboard
@@ -238,7 +235,6 @@ h1 {
     background-color: var(---bg3);
     backdrop-filter: blur(2px);
     transition-duration: 0.2s;
-    cursor: pointer;
 }
 
 .keyboard-container.kb-open {
@@ -252,6 +248,7 @@ h1 {
 .keyboard-container .keyboard-header {
     margin: 8px;
     color: var(--fg2);
+    cursor: pointer;
 }
 
 .keyboard-container > div {
