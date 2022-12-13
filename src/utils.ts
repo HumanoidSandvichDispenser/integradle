@@ -158,6 +158,14 @@ export function randomPolynomial(isHardmode: boolean) {
                 term1.exponent++;
             }
         }
+
+        // ensure the second term is LESS than the first term
+        if (term2.exponent > term1.exponent) {
+            const buf = term1.exponent;
+            term1.exponent = term2.exponent;
+            term2.exponent = buf;
+        }
+
         return [term1, term2];
     }
     return [term1];
