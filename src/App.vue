@@ -34,6 +34,7 @@
         <div class="display">
             <div v-katex:display="previewExpression" class="preview" />
         </div>
+        <visualizer></visualizer>
         <div class="background"></div>
         <grid></grid>
         <div
@@ -58,6 +59,7 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Grid from "./components/Grid.vue";
 import IntegradleTitle from "./components/IntegradleTitle.vue";
 import Keyboard from "./components/Keyboard.vue";
+import Visualizer from "./components/Visualizer.vue";
 
 @Options({
     components: {
@@ -65,6 +67,7 @@ import Keyboard from "./components/Keyboard.vue";
         Grid,
         IntegradleTitle,
         Keyboard,
+        Visualizer,
     },
 })
 export default class App extends Vue {
