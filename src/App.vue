@@ -39,12 +39,11 @@
             <a
                 id="darkmode-icon"
                 href="#"
-                @click="
-                    toggleDarkMode(true);
-                "
-                tooltip="Dark Mode"
+                @click="toggleDarkMode()"
+                tooltip="Toggle light/dark"
             >
-                <bootstrap-icon icon="brightness-high-fill" />
+                <bootstrap-icon v-if="theme == 'light'" icon="sun-fill" />
+                <bootstrap-icon v-else icon="moon-fill" />
             </a>
         </div>
         <visualizer v-if="isFinished" />
@@ -106,6 +105,11 @@ export default class App extends Vue {
     }
 
     created() {
+        let theme = window.localStorage.getItem("theme");
+        if (theme == undefined) {
+            theme = "light";
+        }
+        this.$store.commit("SET_THEME", theme);
         this.newPuzzle();
     }
 
@@ -152,6 +156,15 @@ export default class App extends Vue {
     submit() {
         this.$store.dispatch("SUBMIT");
     }
+
+    get theme() {
+        return this.$store.state.theme;
+    }
+
+    toggleDarkMode() {
+        const newTheme = this.theme == "light" ? "dark" : "light";
+        this.$store.commit("SET_THEME", newTheme);
+    }
 }
 </script>
 
@@ -174,7 +187,8 @@ export default class App extends Vue {
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
-    --keyboard-bg: #edededaa;
+    --integradle-title-cell: #ffffff;
+    --keyboard-bg: #ffffffaa;
     --accent: #98c379;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
     --monospace: "JetBrains Mono", "Courier", monospace;
@@ -184,6 +198,8 @@ export default class App extends Vue {
 
 body {
     background-color: var(--bg0);
+    color: var(--fg0);
+    transition-duration: 0.2s;
 }
 
 body.dark {
@@ -195,6 +211,7 @@ body.dark {
     --bg1: #4d6066;
     --bg2: #607880;
     --bg3: #98aab3;
+    --keyboard-bg: #3a494ea;
 }
 
 h1 {

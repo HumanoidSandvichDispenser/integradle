@@ -66,7 +66,8 @@ const mutations = {
         state.previewExpression = "\\int";
     },
     SET_THEME(state: IRootState, theme: string) {
-        state.theme = theme;
+        state.theme = document.body.className = theme;
+        window.localStorage.setItem("theme", theme);
     },
 };
 

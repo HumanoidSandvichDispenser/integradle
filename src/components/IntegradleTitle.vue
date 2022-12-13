@@ -41,7 +41,7 @@ div.title > .letters > span {
     font-size: 24px;
     font-weight: 600;
     background-color: var(--green);
-    color: var(--bg0);
+    color: var(--integradle-title-cell);
     margin: 4px;
     text-align: center;
     line-height: 32px;
