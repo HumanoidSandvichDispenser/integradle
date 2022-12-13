@@ -29,7 +29,7 @@
                 id="hardmode-icon"
                 href="#"
                 @click="
-                    newPuzzle(false);
+                    newPuzzle(true);
                     $event.target.blur();
                 "
                 tooltip="New puzzle with 2 terms ✌️💿"
@@ -48,6 +48,16 @@
             @click="isKBOpen = !isKBOpen"
         >
             <div @click.stop>
+                <div class="keyboard-header">
+                    <span v-if="isKBOpen">
+                        <bootstrap-icon icon="arrow-bar-down" />
+                        Close keyboard
+                    </span>
+                    <span v-else>
+                        <bootstrap-icon icon="arrow-bar-up" />
+                        Pop up keyboard
+                    </span>
+                </div>
                 <keyboard
                     @push-character="(c) => pushCharacter(c)"
                     @pop-character="(c) => popCharacter(c)"
@@ -196,7 +206,6 @@ h1 {
 
 .keyboard-container {
     position: sticky;
-    margin-top: 32px;
     bottom: -256px;
     padding: 16px;
     background-color: var(---bg3);
@@ -208,9 +217,14 @@ h1 {
 .keyboard-container.kb-open {
     bottom: 0;
     position: sticky;
-    background-color: var(--keyboard-bg);
+    /*background-color: var(--keyboard-bg);*/
     backdrop-filter: blur(4px);
     transition-duration: 0.2s;
+}
+
+.keyboard-container .keyboard-header {
+    margin: 8px;
+    color: var(--fg2);
 }
 
 .keyboard-container > div {

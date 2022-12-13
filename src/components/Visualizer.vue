@@ -52,7 +52,6 @@ export default class Visualizer extends Vue {
 <style>
 .visualizer {
     display: inline-block;
-    max-width: 256px;
     outline: 1px solid var(--fg0);
     padding: 8px;
     margin: 8px;
