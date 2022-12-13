@@ -42,8 +42,7 @@
                 @click="
                     toggleDarkMode(true);
                 "
-                tool
-                tip="Dark Mode"
+                tooltip="Dark Mode"
             >
                 <bootstrap-icon icon="brightness-high-fill" />
             </a>
