@@ -184,7 +184,6 @@ export default class App extends Vue {
     --fg1: #4d6066;
     --fg2: #607880;
     --fg3: #98aab3;
-    --integradle-title-cell: #ffffff;
     --keyboard-bg: #ffffffaa;
     --accent: #98c379;
     --sans-serif: "Source Sans 3", "Arial", sans-serif;
@@ -202,13 +201,18 @@ body {
 body.dark {
     --fg0: #ffffff;
     --fg1: #ededed;
-    --fg2: #dadada;
-    --fg3: #afafaf;
-    --bg0: #3a494e;
-    --bg1: #4d6066;
-    --bg2: #607880;
+    --fg2: #aaa;
+    --fg3: #888;
+    --bg0: #333;
+    --bg1: #444;
+    --bg2: #555;
     --bg3: #98aab3;
-    --keyboard-bg: #3a494ea;
+    --green: #a6d683;
+    --yellow: #f5cd82;
+}
+
+.katex-error {
+    color: var(--red) !important;
 }
 
 h1 {

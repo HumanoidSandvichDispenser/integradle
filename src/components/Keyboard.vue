@@ -90,6 +90,7 @@ export default class Keyboard extends Vue {}
 
 .keyboard-row button.green {
     background-color: var(--green);
+    color: var(--bg0);
 }
 
 .keyboard-row button:hover {
