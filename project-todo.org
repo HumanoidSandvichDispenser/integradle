@@ -1,3 +1,8 @@
 * todo list
-** TODO implement row
-** TODO implement column
+** DONE implement row
+CLOSED: [2022-12-10 Sat 22:09]
+** DONE implement column
+CLOSED: [2022-12-10 Sat 22:09]
+** TODO implement dark mode
+** TODO support for small screens
+** TODO clean up ~console.log~ calls
