@@ -6,4 +6,5 @@ export interface IRootState {
     currentColumn: number;
     isHardmode: boolean;
     isFinished: boolean;
+    theme: string;
 }
