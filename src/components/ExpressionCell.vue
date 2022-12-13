@@ -107,7 +107,6 @@ export default class ExpressionClass extends Vue {
     text-align: center;
     line-height: 48px;
     vertical-align: middle;
-    margin: 4px;
 }
 
 .cell {

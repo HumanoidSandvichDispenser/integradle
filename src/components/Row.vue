@@ -54,6 +54,7 @@ export default class Row extends Vue {
     display: flex;
     margin: 0 auto;
     justify-content: center;
+    column-gap: 8px;
 }
 
 .row.shake {

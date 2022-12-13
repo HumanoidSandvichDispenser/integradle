@@ -1,6 +1,8 @@
 <template>
-    <div class="grid">
-        <row v-for="(_, i) in expressions" :key="i" :row-index="i"></row>
+    <div class="grid-container">
+        <div class="grid">
+            <row v-for="(_, i) in expressions" :key="i" :row-index="i"></row>
+        </div>
     </div>
 </template>
 
@@ -26,4 +28,17 @@ export default class Grid extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.grid-container {
+    display: inline-block;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 4px;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+</style>
