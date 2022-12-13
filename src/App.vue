@@ -17,7 +17,10 @@
             </a>
             <a
                 href="#"
-                @click="newPuzzle(false)"
+                @click="
+                    newPuzzle(false);
+                    $event.target.blur();
+                "
                 tooltip="New puzzle with 1 term"
             >
                 <bootstrap-icon icon="dice-1-fill" />
@@ -25,16 +28,19 @@
             <a
                 id="hardmode-icon"
                 href="#"
-                @click="newPuzzle(true)"
+                @click="
+                    newPuzzle(false);
+                    $event.target.blur();
+                "
                 tooltip="New puzzle with 2 terms ✌️💿"
             >
                 <bootstrap-icon icon="dice-2-fill" />
             </a>
         </div>
-        <div class="display">
+        <visualizer v-if="isFinished" />
+        <div v-else class="display">
             <div v-katex:display="previewExpression" class="preview" />
         </div>
-        <visualizer></visualizer>
         <div class="background"></div>
         <grid></grid>
         <div
@@ -89,6 +95,10 @@ export default class App extends Vue {
 
     get previewExpression(): string {
         return this.$store.state.previewExpression;
+    }
+
+    get isFinished() {
+        return this.$store.state.isFinished;
     }
 
     pushKey(event: KeyboardEvent) {
@@ -236,12 +246,13 @@ h1 {
 .links a[tooltip]:after {
     content: attr(tooltip);
     position: absolute;
-    margin-top: 1em;
     width: 256px;
-    transform: translate(-128px, 16px);
     font-weight: 500;
     font-size: 18px;
     opacity: 0;
+    left: 50%;
+    top: 100%;
+    margin-left: -128px;
     pointer-events: none;
 }
 

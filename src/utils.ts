@@ -74,6 +74,14 @@ export function checkAnswer(cells: string[], answer: string[]): boolean {
     return !hasFoundDiff;
 }
 
+export function checkCell(cell: string, idx: number, row: string[]): number {
+    if (cell == row[idx]) {
+        return idx;
+    }
+
+    return row.indexOf(cell);
+}
+
 function hash(str: string) {
     let hash = 0;
     const len = str.length;
@@ -88,11 +96,6 @@ function randomInteger(seed: string, max = 10) {
 }
 
 export function randomLine(isHardmode = false) {
-    /*
-    if (seed == "") {
-        seed = new Date().toISOString().slice(0, 10) + "pepega";
-    }
-    */
     const antiderivative = randomPolynomial(isHardmode);
     const integrand = antiderivative.map((term) => term.derivative());
     let antiderivativeStr: string[] = [];
@@ -127,13 +130,6 @@ function pick(seed: string, arr: number[], amount: number) {
     }
     return result;
 }
-
-//
-// Write a function that generates a random polynomial using the randomTerm() function above. Each term should have a unique exponent (so the polynomial does not have 5x^2 + 2x^2 for instance).
-// Example:
-// randomPolynomial() -> [ '5', 'x^2', '+', '2', 'x' ]
-// randomPolynomial() -> [ '1', 'x^4', '+', '3', 'x^3', '+', '7', 'x^2', '+', '5', 'x' ]
-// randomPolynomial() -> [ '2', 'x^3', '+', 'x^2', '+', '3', 'x' ]
 
 function randomTerm(): Term {
     let coefficient = Math.floor(Math.random() * 9) + 1;
